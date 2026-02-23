@@ -4,11 +4,11 @@ import streamlit as st
 import io
 import pandas as pd
 
-
+st.write("Download File ...")
 
 def download_file(df):
 
-    st.write("Download File ...")
+    
     
     output = BytesIO()
     df.to_excel(output, index=False, engine="xlsxwriter")
@@ -25,5 +25,6 @@ def to_excel_xlsxwriter(df):
         # writer.save() は不要（with が自動でやる）
 
     return output.getvalue()
+
 
 
