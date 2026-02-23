@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import os
 
+print ("Load File ...")
 
 def load_file(uploaded_file, MAX_COL=150):
 
@@ -64,3 +65,4 @@ def load_file(uploaded_file, MAX_COL=150):
 
     else:
         raise ValueError("Unsupported file format")
+
