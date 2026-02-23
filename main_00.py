@@ -7,7 +7,7 @@ from download_file import download_file
 
 
 def main():
-    st.title("勤怠データ変換アプリ")
+    st.title("勤怠データチェックアプリ")
 
     uploaded_file = st.file_uploader(
         "CSVまたはExcelファイルをアップロードしてください",
@@ -18,6 +18,8 @@ def main():
         st.success("ファイルを読み込みました")
 
         df = load_file(uploaded_file)
+
+        st.write("Translating time to numerics ...")
         df2 = time_translate(df)
         result_file = download_file(df2)
 
@@ -34,3 +36,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
