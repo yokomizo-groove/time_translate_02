@@ -25,7 +25,15 @@ def time_translate(df):
 
     df = df.copy()
     df.columns = df.columns.str.strip()
+    
+    # 150列固定の DataFrame を作る
+    MAX_COL = max(150, len(df.columns))
+    out = pd.DataFrame("", index=df.index, columns=range(MAX_COL))
 
+    # 元の列を左側にコピー
+    for i, col in enumerate(df.columns):
+        out[i] = df[col]
+    
     mapping = {
         99: "法定内超勤時間",
         100: "早出残業時間",
@@ -50,13 +58,7 @@ def time_translate(df):
         124: "終業時刻",
     }
 
-    # 150列固定の DataFrame を作る
-    MAX_COL = 150
-    out = pd.DataFrame("", index=df.index, columns=range(MAX_COL))
 
-    # 元の列を左側にコピー
-    for i, col in enumerate(df.columns):
-        out[i] = df[col]
 
     # 時刻変換
     for excel_col, col_name in mapping.items():
@@ -75,4 +77,6 @@ def time_translate(df):
 
     out.columns = headers
 
+
+    
     return out
