@@ -2,7 +2,7 @@ import streamlit as st
 import os
 
 from load_file import load_file
-from time_translate_02 import time_translate
+from time_translate import time_translate
 from download_file import download_file
 
 
@@ -38,6 +38,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
