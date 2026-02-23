@@ -2,9 +2,11 @@ import pandas as pd
 import numpy as np
 import streamlit as st
 
-st.write("Translating Time to Numeric ...")
+
 
 def convert_time_series(series):
+    st.write("Translating Time to Numeric ...")
+    
     s = series.fillna("").astype(str).str.strip()
 
     # HH:MM:SS / H:MM:SS / HH:MM / H:MM に対応
@@ -75,4 +77,5 @@ def time_translate(df):
     final_df.columns = headers
 
     return final_df
+
 
