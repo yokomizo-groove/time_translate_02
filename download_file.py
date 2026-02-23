@@ -4,11 +4,11 @@ import streamlit as st
 import io
 import pandas as pd
 
-st.write("Making download file ...")
+
 
 def download_file(df):
 
-    
+    st.write("Making download file ...")    
     
     output = BytesIO()
     df.to_excel(output, index=False, engine="xlsxwriter")
@@ -18,6 +18,8 @@ def download_file(df):
 def to_excel_xlsxwriter(df):
     output = io.BytesIO()
 
+    st.write("Making download file with xlsxwriter...")
+    
     # xlsxwriter をエンジンとして使う
     with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
         df.to_excel(writer, index=False, sheet_name='Sheet1')
@@ -25,6 +27,7 @@ def to_excel_xlsxwriter(df):
         # writer.save() は不要（with が自動でやる）
 
     return output.getvalue()
+
 
 
 
