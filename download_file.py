@@ -4,7 +4,7 @@ import streamlit as st
 import io
 import pandas as pd
 
-st.write("Download File ...")
+st.write("Making download file ...")
 
 def download_file(df):
 
@@ -25,6 +25,7 @@ def to_excel_xlsxwriter(df):
         # writer.save() は不要（with が自動でやる）
 
     return output.getvalue()
+
 
 
 
