@@ -1,0 +1,51 @@
+import streamlit as st
+import os
+import io
+import pandas as pd
+
+from load_file import load_file
+from time_translate_03 import time_translate
+
+
+# ★ 高速 xlsxwriter 版 Excel 変換関数
+def to_excel_xlsxwriter(df):
+    output = io.BytesIO()
+    with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
+        df.to_excel(writer, index=False, sheet_name='Sheet1')
+    return output.getvalue()
+
+
+def main():
+    st.title("勤怠データチェックアプリ")
+
+    uploaded_file = st.file_uploader(
+        "CSVまたはExcelファイルをアップロードしてください",
+        type=["csv", "xlsx", "xlsm"]
+    )
+
+    if uploaded_file is not None:
+        st.success("ファイルを読み込みました")
+
+        df = load_file(uploaded_file)
+        st.write("df.shape:", df.shape)
+
+        st.write("Translating time to numerics ...")
+        df2 = time_translate(df)
+
+        # ★ ここで Excel バイト列を作る（高速）
+        excel_bytes = to_excel_xlsxwriter(df2)
+
+        base_name = os.path.splitext(uploaded_file.name)[0]
+        download_name = f"{base_name}_output.xlsx"
+
+        # ★ ダウンロードボタン
+        st.download_button(
+            label="変換ファイルをダウンロード",
+            data=excel_bytes,
+            file_name=download_name,
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        )
+
+
+if __name__ == "__main__":
+    main()
