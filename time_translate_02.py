@@ -2,18 +2,24 @@ import pandas as pd
 import numpy as np
 
 def fast_convert(series):
-    # 文字列化
     s = series.fillna("").astype(str).str.strip()
 
-    # 秒がある場合は切り捨て（"HH:MM:SS" → "HH:MM"）
-    s = s.str.slice(0, 5)
+    # 秒がある場合は切り捨て ("HH:MM:SS" → "HH:MM")
+    s = s.str.split(":").str[:2].str.join(":")
 
-    # "H:MM" の場合はゼロ埋め
+    # "H:MM" → "0H:MM"
     s = s.str.replace(r'^(\d):', r'0\1:', regex=True)
 
-    # "HH:MM" → HHMM の整数化
+    # "HH:M" → "HH:0M"
+    s = s.str.replace(r'^(\d{2}):(\d)$', r'\1:0\2', regex=True)
+
+    # ★ 不正値は "00:00" に強制変換（行数を絶対に壊さない）
+    s = s.where(s.str.match(r'^\d{2}:\d{2}$'), "00:00")
+
+    # HHMM に変換
     return (s.str.slice(0, 2).astype(int) * 100 +
             s.str.slice(3, 5).astype(int))
+
 
 def time_translate(df):
 
