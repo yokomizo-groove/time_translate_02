@@ -14,6 +14,7 @@ def to_excel_xlsxwriter(df):
         df.to_excel(writer, index=False, sheet_name='Sheet1')
     return output.getvalue()
 
+    st.write("Making download file with xlsxwriter")
 
 def main():
     st.title("勤怠データチェックアプリ")
