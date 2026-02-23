@@ -11,7 +11,7 @@ from time_translate_03 import time_translate
 # ★ 高速 xlsxwriter 版 Excel 変換関数
 def to_excel_xlsxwriter(df):
     output = io.BytesIO()
-    st.write("Making download file with xlsxwriter")
+    
     with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
         df.to_excel(writer, index=False, sheet_name='Sheet1')
     return output.getvalue()
@@ -38,6 +38,7 @@ def main():
         df2 = time_translate(df)
 
         # ★ ここで Excel バイト列を作る（高速）
+        st.write("Making download file with xlsxwriter")
         excel_bytes = to_excel_xlsxwriter(df2)
         
         # ★ タイマー終了
