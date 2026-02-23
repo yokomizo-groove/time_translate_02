@@ -42,6 +42,11 @@ def load_file(uploaded_file, MAX_COL=150):
         df = pd.DataFrame(data, columns=header)
         df = df.fillna("")
 
+        # ★ 1〜5列目のどれかにデータがある行だけを残す
+        key_cols = df.columns[:5]  # 1〜5列目
+        valid_rows = df[key_cols].apply(lambda row: any(str(x).strip() for x in row), axis=1)
+        df = df[valid_rows].reset_index(drop=True)
+
         return df
 
     # ===== Excel =====
@@ -57,17 +62,24 @@ def load_file(uploaded_file, MAX_COL=150):
             pad[:] = ""
             base_array = np.hstack([base_array, pad])
 
-        cols = list(df.columns)
+            cols = list(df.columns)
         if len(cols) < MAX_COL:
             cols += [""] * (MAX_COL - len(cols))
 
         df = pd.DataFrame(base_array, columns=cols)
         df = df.fillna("")
 
+        # ★ 1〜10列目のどれかにデータがある行だけを残す
+        key_cols = df.columns[:10]  # 1〜10列目
+        valid_rows = df[key_cols].apply(lambda row: any(str(x).strip() for x in row), axis=1)
+        df = df[valid_rows].reset_index(drop=True)
+
         return df
+
 
     else:
         raise ValueError("Unsupported file format")
+
 
 
 
