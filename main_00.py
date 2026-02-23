@@ -19,6 +19,8 @@ def main():
 
         df = load_file(uploaded_file)
 
+        st.write("df.shape:", df.shape)
+
         st.write("Translating time to numerics ...")
         df2 = time_translate(df)
         result_file = download_file(df2)
@@ -36,6 +38,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
