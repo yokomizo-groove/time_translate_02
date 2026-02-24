@@ -15,9 +15,15 @@ def convert_time_series(series):
 def time_translate(df):
 
     df = df.copy()
-    df.columns = df.columns.str.strip()
+
+    # ★ 列名の " を除去
+    df.columns = df.columns.str.strip().str.replace('"', '', regex=False)
+
+    # ★ 全データの " を除去
+    df = df.applymap(lambda x: x.replace('"', '') if isinstance(x, str) else x)
 
     final_array = df.to_numpy(dtype=object)
+
 
     # ★ 列名 → index の高速辞書
     col_index = {name: i for i, name in enumerate(df.columns)}
