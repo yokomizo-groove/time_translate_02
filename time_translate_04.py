@@ -75,7 +75,7 @@ def time_translate(df):
 
     headers[105 - 1] = "深夜時間計-t"
 
-    final_df.columns = headers
+    # final_df.columns = headers
 
     # return final_df
     return final_array, headers
