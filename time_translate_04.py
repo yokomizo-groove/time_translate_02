@@ -60,11 +60,13 @@ def time_translate(df):
         total = converted_cache["所定内深夜時間"] + converted_cache["所定外深夜時間"]
         final_array[:, 105 - 1] = total.values
 
-    final_df = pd.DataFrame(final_array)
+    # final_df = pd.DataFrame(final_array)
 
     # ヘッダー整形（高速版）
+    rows, cols = final_array.shape
     headers = list(df.columns)
-    extra = final_df.shape[1] - len(headers)
+    extra = cols - len(headers)
+    
     if extra > 0:
         headers.extend([""] * extra)
 
