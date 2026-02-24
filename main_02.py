@@ -35,14 +35,16 @@ def main():
         df = load_file(uploaded_file)
         st.write("df.shape:", df.shape)
 
-        st.write("Translating time to numerics ...")
-        df2 = time_translate(df)
+        
+        # df2 = time_translate(df)
 
         # ★ ここで Excel バイト列を作る（高速）
-        st.write("Making download file with xlsxwriter")
+        # st.write("Making download file with xlsxwriter")
         # excel_bytes = to_excel_xlsxwriter(df2)
-
+        st.write("Translating time to numerics ...")
         final_array, headers = time_translate(df)
+
+        st.write("Making download file with fast_numpy")
         excel_bytes = to_excel_fast_numpy(final_array, headers)
 
         # ★ タイマー終了
