@@ -1,3 +1,15 @@
+import streamlit as st
+import os
+import io
+import pandas as pd
+import time
+
+from load_file import load_file
+from time_translate_04 import time_translate
+from download_file import to_excel_fast_numpy, to_csv_fast
+
+
+
 def main():
     st.title("勤怠データチェックアプリ")
 
