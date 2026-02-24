@@ -30,7 +30,8 @@ def main():
     if uploaded_file is not None:
         st.success("ファイルを読み込みました")
 
-        # ★ タイマー開始 start = time.time()
+        # ★ タイマー開始
+        start = time.time()
         
         df = load_file(uploaded_file)
         st.write("df.shape:", df.shape)
