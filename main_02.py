@@ -45,9 +45,20 @@ def main():
         st.write("Translating time to numerics ...")
         final_array, headers = time_translate(df)
 
-        st.write("Making download file with fast_numpy")
-        excel_bytes = to_excel_fast_numpy(final_array, headers)
+        # st.write("Making download file with fast_numpy")
+        # excel_bytes = to_excel_fast_numpy(final_array, headers)
 
+        st.write("Making download file with to_csv_fast")
+        csv_bytes = to_csv_fast(final_array, headers)
+
+        st.download_button(
+            label="CSVでダウンロード",
+            data=csv_bytes,
+            file_name=f"{base_name}_output.csv",
+            mime="text/csv"
+        )
+
+        
         # ★ タイマー終了
         end = time.time() 
         elapsed = end - start
