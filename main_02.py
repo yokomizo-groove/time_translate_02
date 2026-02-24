@@ -55,6 +55,9 @@ def main():
         st.write("Making download file with to_csv_fast")
         csv_bytes = to_csv_fast(final_array, headers)
 
+        base_name = os.path.splitext(uploaded_file.name)[0]
+        download_name = f"{base_name}_output.xlsx"
+        
         st.download_button(
             label="CSVでダウンロード",
             data=csv_bytes,
@@ -70,16 +73,15 @@ def main():
         # ★ 結果表示
         st.info(f"処理時間: {elapsed:.2f} 秒")
         
-        base_name = os.path.splitext(uploaded_file.name)[0]
-        download_name = f"{base_name}_output.xlsx"
+ 
 
         # ★ ダウンロードボタン
-        st.download_button(
-            label="変換ファイルをダウンロード",
-            data=excel_bytes,
-            file_name=download_name,
-            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-        )
+        # st.download_button(
+        #    label="変換ファイルをダウンロード",
+        #    data=excel_bytes,
+        #    file_name=download_name,
+        #    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        # )
 
 
 if __name__ == "__main__":
