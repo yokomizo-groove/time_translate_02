@@ -1,14 +1,3 @@
-import streamlit as st
-import os
-import io
-import pandas as pd
-import time
-
-from load_file import load_file
-from time_translate_04 import time_translate
-from download_file import to_excel_fast_numpy, to_csv_fast
-
-
 def main():
     st.title("勤怠データチェックアプリ")
 
@@ -39,6 +28,7 @@ def main():
 
     base_name = os.path.splitext(uploaded_file.name)[0]
 
+    # ★ 選ばれた形式だけ作る
     if output_type == "Excel（xlsx）":
         st.write("Making Excel file ...")
         excel_bytes = to_excel_fast_numpy(final_array, headers)
@@ -63,6 +53,7 @@ def main():
 
     end = time.time()
     st.info(f"処理時間: {end - start:.2f} 秒")
+
 
 
 if __name__ == "__main__":
