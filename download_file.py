@@ -4,6 +4,18 @@ import streamlit as st
 import io
 import pandas as pd
 
+def to_csv_fast(final_array, headers):
+    output = io.StringIO()
+
+    # ヘッダー行
+    output.write(",".join(headers) + "\n")
+
+    # データ行（NumPy → CSV）
+    for row in final_array:
+        # すべて文字列化して結合
+        output.write(",".join(map(str, row)) + "\n")
+
+    return output.getvalue().encode("utf-8-sig")
 
 
 def download_file(df):
@@ -64,6 +76,7 @@ def to_excel_fast_numpy(final_array, headers):
 
     workbook.close()
     return output.getvalue()
+
 
 
 
