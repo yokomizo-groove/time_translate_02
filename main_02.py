@@ -28,6 +28,9 @@ def main():
         type=["csv", "xlsx", "xlsm"]
     )
 
+    # ★ タイマー開始
+    start = time.time()
+
     if uploaded_file is not None:
         st.success("ファイルを読み込みました")
 
