@@ -26,7 +26,7 @@ def to_excel_xlsxwriter(df):
 
     return output.getvalue()
 
-def to_excel_fast_numpy(final_array, headers):
+def to_excel_fast_numpy_old(final_array, headers):
     output = io.BytesIO()
     import xlsxwriter
 
@@ -42,6 +42,25 @@ def to_excel_fast_numpy(final_array, headers):
     for r in range(rows):
         for c in range(cols):
             worksheet.write(r + 1, c, final_array[r, c])
+
+    workbook.close()
+    return output.getvalue()
+
+def to_excel_fast_numpy(final_array, headers):
+    output = io.BytesIO()
+    import xlsxwriter
+
+    workbook = xlsxwriter.Workbook(output, {'in_memory': True})
+    worksheet = workbook.add_worksheet("Sheet1")
+
+    # ★ ヘッダーを一発で書く（write_row）
+    worksheet.write_row(0, 0, headers)
+
+    rows, cols = final_array.shape
+
+    # ★ NumPy → list に変換して write_row で一気に書く
+    for r in range(rows):
+        worksheet.write_row(r + 1, 0, final_array[r].tolist())
 
     workbook.close()
     return output.getvalue()
