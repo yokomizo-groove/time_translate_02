@@ -6,15 +6,16 @@ import time
 
 from load_file import load_file
 from time_translate_04 import time_translate
+from download_file import to_excel_xlsxwriter
 from download_file import to_excel_fast_numpy
 
 # ★ 高速 xlsxwriter 版 Excel 変換関数
-def to_excel_xlsxwriter(df):
-    output = io.BytesIO()
+#def to_excel_xlsxwriter(df):
+#    output = io.BytesIO()
     
-    with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
-        df.to_excel(writer, index=False, sheet_name='Sheet1')
-    return output.getvalue()
+#    with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
+#        df.to_excel(writer, index=False, sheet_name='Sheet1')
+#    return output.getvalue()
 
     
 
