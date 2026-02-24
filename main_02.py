@@ -8,6 +8,7 @@ from load_file import load_file
 from time_translate_04 import time_translate
 from download_file import to_excel_xlsxwriter
 from download_file import to_excel_fast_numpy
+from download_file import to_csv_fast
 
 # ★ 高速 xlsxwriter 版 Excel 変換関数
 #def to_excel_xlsxwriter(df):
